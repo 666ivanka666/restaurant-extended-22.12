@@ -1,11 +1,8 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { BaseMenuItemDto } from 'src/menu_item/dto';
 
 export class MenuDto {
-  @IsString()
-  @IsNotEmpty()
-  @IsUUID()
-  restaurantId: string;
-
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -14,7 +11,8 @@ export class MenuDto {
   @IsNotEmpty()
   description: string;
 
-  @IsString()
-  @IsNotEmpty()
-  menuItems: string[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => BaseMenuItemDto)
+  menuItems: BaseMenuItemDto[];
 }

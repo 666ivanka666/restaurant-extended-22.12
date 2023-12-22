@@ -16,28 +16,14 @@ import { IdDto } from 'src/common/decorators';
 export class RestaurantController {
   constructor(private readonly restaurantService: RestaurantService) {}
 
-  // @Post()
-  // addRestaurant(@Body() body: RestaurantDto): { id: string } {
-  //   const generatedId = this.restaurantService.insertRestaurant(
-  //     body.name,
-  //     body.location,
-  //     body.rating,
-  //     body.petFriendly,
-  //     body.menu,
-  //   );
-  //   return { id: generatedId };
-  // }
-
   @Post()
   addRestaurant(@Body() body: RestaurantDto): { id: string } {
-    const menu: string[] = body.menu;
-
     const generatedId = this.restaurantService.insertRestaurant(
       body.name,
       body.location,
       body.rating,
       body.petFriendly,
-      menu,
+      body.menus,
     );
 
     return { id: generatedId };

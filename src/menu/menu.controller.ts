@@ -16,26 +16,12 @@ import { MenuDto } from './dto';
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
-  // @Post()
-  // addMenu(@Body() body: MenuDto): { id: string } {
-  //   const generatedId = this.menuService.insertMenu(
-  //     body.restaurantId,
-  //     body.description,
-  //     body.title,
-  //     menuItems [],
-  //   );
-  //   return { id: generatedId };
-  // }
-
   @Post()
   addMenu(@Body() body: MenuDto): { id: string } {
-    const menuItems: string[] = body.menuItems;
-
     const generatedId = this.menuService.insertMenu(
-      body.restaurantId,
-      body.description,
       body.title,
-      menuItems,
+      body.description,
+      body.menuItems,
     );
 
     return { id: generatedId };
@@ -54,12 +40,7 @@ export class MenuController {
   @Put(':id')
   updateMenu(@Param() params: IdDto, @Body() body: MenuDto): Menu {
     const { id } = params;
-    return this.menuService.updateMenu(
-      id,
-      body.restaurantId,
-      body.description,
-      body.title,
-    );
+    return this.menuService.updateMenu(id, body.title, body.description);
   }
 
   @Delete(':id')

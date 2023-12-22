@@ -1,4 +1,13 @@
-import { IsNotEmpty, IsString, IsNumber, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsString,
+  IsNumber,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
+import { MenuDto } from 'src/menu/dto';
 
 export class RestaurantDto {
   @IsString()
@@ -9,23 +18,16 @@ export class RestaurantDto {
   @IsNotEmpty()
   location: string;
 
-  // ``  @IsNumber()
-  //   @IsNotEmpty()
-  //   rating: string;
-
-  //   @IsBoolean()
-  //   @IsNotEmpty()
-  //   petFriendly: boolean;
-
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  rating: string;
+  rating: number;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
-  petFriendly: string;
+  petFriendly: boolean;
 
-  @IsString()
-  @IsNotEmpty()
-  menu: string[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => MenuDto)
+  menus: MenuDto[];
 }

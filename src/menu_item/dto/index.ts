@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsNumber, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class MenuItemDto {
   @IsString()
@@ -10,4 +10,10 @@ export class MenuItemDto {
   @IsNotEmpty()
   @IsUUID()
   menuId: string;
+}
+
+export class BaseMenuItemDto {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 }
